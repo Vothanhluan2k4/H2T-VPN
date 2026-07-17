@@ -14,7 +14,8 @@ import {
   ArrowRight,
   Sparkle,
   Sun,
-  Moon
+  Moon,
+  ArrowUp
 } from "@phosphor-icons/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -162,6 +163,22 @@ export default function App() {
   // Newsletter Signup State & Submission Simulation
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -1665,6 +1682,19 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Scroll to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-8 right-8 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-border-theme bg-card-theme/80 text-text-theme shadow-2xl backdrop-blur-md transition-all duration-500 active:scale-95 cursor-pointer ${
+          showScrollTop 
+            ? "translate-y-0 opacity-100 visible pointer-events-auto" 
+            : "translate-y-6 opacity-0 invisible pointer-events-none"
+        } hover:border-[#10b981] hover:text-[#10b981] hover:shadow-[0_0_15px_rgba(16,185,129,0.2)]`}
+        aria-label="Scroll to top"
+      >
+        <ArrowUp className="h-5 w-5" weight="bold" />
+      </button>
     </div>
   );
 }
