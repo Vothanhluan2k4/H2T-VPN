@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Outfit", "Plus Jakarta Sans", system-ui, sans-serif;
+  
+  --color-brand-emerald: #10b981;
+  --color-brand-emerald-dark: #059669;
+  --color-brand-cyan: #06b6d4;
+  --color-brand-blue: #3b82f6;
+  
+  /* Theme-aware variables */
+  --color-bg-theme: var(--bg-color);
+  --color-text-theme: var(--text-color);
+  --color-text-muted-theme: var(--text-muted);
+  --color-card-theme: var(--card-bg);
+  --color-card-elevated-theme: var(--card-bg-elevated);
+  --color-border-theme: var(--border-color);
+  
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-marquee: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+:root {
+  /* Light Mode Variables */
+  --bg-color: #f6f6f9;
+  --text-color: #121316;
+  --text-muted: #5e6675;
+  --card-bg: #ffffff;
+  --card-bg-elevated: #eeeff3;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glow-opacity: 0.05;
+  --noise-opacity: 0.015;
+  color-scheme: light;
+}
+
+:root.dark {
+  /* Dark Mode Variables */
+  --bg-color: #050505;
+  --text-color: #f4f4f5;
+  --text-muted: #a1a1aa;
+  --card-bg: #0b0c10;
+  --card-bg-elevated: #11131a;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(11, 12, 16, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glow-opacity: 0.12;
+  --noise-opacity: 0.02;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--card-bg-elevated);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Glassmorphism panel helper */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.glass-panel-elevated {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Noise overlay pseudo-element */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+  opacity: var(--noise-opacity);
+}
+
+/* Premium Gradient Text */
+.gradient-text-green {
+  background: linear-gradient(135deg, var(--text-color) 30%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-cyan {
+  background: linear-gradient(135deg, var(--text-color) 30%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-blue-emerald {
+  background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Fading edge marquee mask */
+.mask-image-marquee {
+  mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+}
+
+/* 3D Transform Utilities */
+.perspective-1200 {
+  perspective: 1200px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+/* Logo Inversion based on Theme */
+.theme-logo-img {
+  filter: invert(1);
+  transition: filter 0.4s ease;
+}
+
+:root.dark .theme-logo-img {
+  filter: invert(0);
+}
+
+/* Cyber Simulator Map Keyframes & Classes */
+@keyframes cyber-flow {
+  from {
+    stroke-dashoffset: 40;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-cyber-flow {
+  stroke-dasharray: 8 4;
+  animation: cyber-flow 1.5s linear infinite;
+}
+
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.animate-radar-pulse {
+  animation: radar-pulse 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+

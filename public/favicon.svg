@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <style>
+    .grid-lines { stroke: #ffffff; }
+    .bg-shield { fill: #0c0c0e; }
+    @media (prefers-color-scheme: light) {
+      .grid-lines { stroke: #121316; }
+      .bg-shield { fill: #ffffff; }
+    }
+  </style>
+  <path d="M50 8 L88 22 V50 C88 73 70 89 50 93 C30 89 12 73 12 50 V22 L50 8 Z" class="bg-shield" stroke="#10b981" stroke-width="8" stroke-linejoin="round" />
+  <path d="M34 38 H66" class="grid-lines" stroke-width="6" stroke-linecap="round" />
+  <path d="M34 52 H66" class="grid-lines" stroke-width="6" stroke-linecap="round" />
+  <path d="M50 28 V72" class="grid-lines" stroke-width="6" stroke-linecap="round" />
+  <circle cx="50" cy="50" r="7" fill="#10b981" />
+</svg>
